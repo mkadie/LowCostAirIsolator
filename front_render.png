@@ -1,0 +1,13 @@
+# Disclaimer
+
+**This is an open-source, unfunded, preliminary project. It is not a certified medical device.**
+
+- **As-is, no warranty.** The Low-Cost Air Isolator and all files in this repository are provided as-is, without warranty of any kind, express or implied.
+- **No medical or FDA claims.** The authors make **no** assertion that this device or any component is FDA-cleared, FDA-registered, biocompatibility-certified, or compliant with any medical-device regulation in any jurisdiction. Nothing here is a medical claim or a safety certification.
+- **Preliminary and unvalidated.** The design is an early working prototype. Hygiene, material, and food-safety guidance in this repository is **design intent, not a validated infection-control or biocompatibility protocol**.
+- **Mixed sources.** Some information draws on manufacturer datasheets, standards, and other non-peer-reviewed sources alongside peer-reviewed literature. Verify independently before relying on it.
+- **Your responsibility.** Anyone fabricating, modifying, or deploying this — especially for vulnerable users or in shared/clinical settings — is responsible for their own safety validation, biocompatibility testing, and regulatory compliance in their jurisdiction.
+
+For the full picture, including a roadmap of **what formal FDA compliance would require** (device classification, general controls, ISO 10993 biocompatibility, etc.), see the "Project status, funding & disclaimer" and "Path to FDA compliance / certification" sections of [`air-isolator.md`](./air-isolator.md).
+
+This roadmap is informational only and is **not legal or regulatory advice**; consult a qualified regulatory professional.

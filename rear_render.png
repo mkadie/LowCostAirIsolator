@@ -1,0 +1,74 @@
+# Low-Cost Air Isolator
+
+**An open, low-cost, latex-free breath/sensor isolator for sip-and-puff assistive devices.**
+
+A few-cent, latex-free, user-replaceable membrane that fully separates a user's breath (saliva, moisture, pathogens) from the pressure sensor and electronics of a sip-and-puff (breath-actuated) assistive switch — giving both **sensor protection** and **between-user hygiene**. It's designed for 3D printing plus common medical consumables (a nitrile finger cot as the membrane), and is meant to be reused across open-source assistive-technology projects.
+
+![Screw-together Unit — concept schematic](./air-isolator-screw-unit.svg)
+
+> **Status: working prototype (V0.1), preliminary.** It screws together and seems to work well in early hands-on use, but it is **not validated**. We are actively seeking testing, food-safety review, and improvements — **from experts, makers, and users alike**. This is **not** a certified medical device (see [Disclaimer](#disclaimer)).
+
+---
+
+## What's in this repo
+
+| File | What it is |
+|---|---|
+| [`air-isolator.md`](./air-isolator.md) | **Full design note** — concept, mounting options, cost model, mouthpiece hygiene strategy, disclaimer, FDA-compliance notes, and references |
+| [`air-isolator-prototype-v1.md`](./air-isolator-prototype-v1.md) | **V0 prototype release + call for feedback**, with measured specs and part renders |
+| [`AirIsolator_Fabrication_Brief.pdf`](./AirIsolator_Fabrication_Brief.pdf) | Printer/plastics **fabrication brief** (materials, sealing, food-safety) |
+| [`air-isolator-cost-model.csv`](./air-isolator-cost-model.csv) | Editable per-Unit / per-plate **cost model** |
+| [`/stl`](./stl) | Print-ready **STL files** — V0.1, in **1/4"** and **1/8" tube** variants (front shell + matching rear shell) |
+| `*.svg`, `*_render.png` | Cross-section schematics and part renders |
+
+## Quick start (print one)
+
+1. **Pick your tube size** (1/4" recommended for printability, strength, and comfort) and print the matching pair from [`/stl`](./stl) — e.g. `...FrontShell_-_V0_1_-_25in_Tube.stl` + `...RearShell_-_V0_1_-_25in_Tube.stl`. PETG, or transparent food-grade PCTG for the mouthpiece; a stainless/hardened-steel nozzle is recommended.
+2. Seat a **nitrile finger cot** (latex-free) as the membrane, slack — not stretched.
+3. **Screw the two shells together** to clamp the cot cuff at the seam (that forms the seal — no glue).
+4. Push the barbed spigot into your sensor tube.
+
+See the [fabrication brief](./AirIsolator_Fabrication_Brief.pdf) and [design note](./air-isolator.md) for materials, food safety, and hygiene.
+
+## Measured specs (V0)
+
+| Part | Bounding box | Mass (PETG) | Watertight? |
+|---|---|---|---|
+| Front shell V0.1 (same for both tube sizes) | 34 × 34 × 63 mm | ~11.8 g | Yes |
+| Rear shell V0.1 — 1/4" tube | 32 × 32 × 68 mm | ~14.1 g | Yes |
+| Rear shell V0.1 — 1/8" tube | 32 × 32 × 61 mm | ~12.6 g \* | **No** \* |
+| Combined (1/4" build) | — | ~26 g (~8.5 m filament) | — |
+
+\* The **1/8" rear shell mesh isn't yet watertight**, so its figures are estimates; the **1/4" rear shell is watertight**. See the [prototype note](./air-isolator-prototype-v1.md). (The two front-shell files are geometrically identical — the tube size only changes the rear shell.)
+
+## Food safety & hygiene
+
+The mouthpiece is mouth-adjacent, but the **membrane and tubing are the actual hygienic barrier**, so the printed surface is a second-line concern. Baseline plan: treat the mouthpiece as a small, cheap **disposable** in food-grade filament, hand-washed and replaced on schedule (nothing printed is dishwasher-safe). Optional epoxy/silicone finishes and a biocompatible-SLA route are documented in the [design note](./air-isolator.md#mouthpiece-hygiene-strategy).
+
+## Feedback & contributing
+
+We'd love feedback from **anyone with relevant expertise**, from **other open-source assistive-device makers**, and above all from **people who use assistive devices**.
+
+- **Open an [Issue](https://github.com/mkadie/LowCostAirIsolator/issues) or Discussion** — preferred; keeps it public and iterable.
+- **Pull requests welcome** — STL/design improvements, docs, or test data.
+- Email: main@tssfaa.com
+
+See [`air-isolator-prototype-v1.md`](./air-isolator-prototype-v1.md) for the specific questions we're hoping experts can help with.
+
+## Credits
+
+- **Idea, research, documentation & testing:** T-Rex — Michael Kadie ([@mkadie](https://github.com/mkadie)), R.O.A.R. (Rex's Open Assistive Resources) / TSSFAA · [tssfaa.com](https://tssfaa.com). Research was sped up and documentation iterated with the help of Claude (Anthropic).
+- **Plastics / CAD design:** [@JoshDesigns](https://youtube.com/@JoshDesigns) (YouTube) / [@Joshuaua](https://github.com/Joshuaua) (GitHub).
+- Part of the **SipNPuff / R.O.A.R.** open-source assistive-technology initiative.
+
+If you build on this work, please keep the attribution.
+
+## License
+
+Licensed under **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)** — free to use, share, and adapt for **non-commercial** purposes with attribution. Commercial use requires permission (contact TSSFAA). See [`LICENSE`](./LICENSE).
+
+> Note on terminology: a **non-commercial** license makes the project **free and source-available**, but it is not "open source" in the strict [OSI](https://opensource.org/osd) sense, which forbids restrictions on commercial use. We use CC BY-NC deliberately to keep the work freely shareable for the assistive-tech community while reserving commercial rights for the nonprofit.
+
+## Disclaimer
+
+Open-source, unfunded, and **preliminary**. Provided **as-is, without warranty**. **No FDA, medical-device, or biocompatibility claims** are made about this device or any component. Some information here is drawn from manufacturer/maker sources rather than peer-reviewed literature. Anyone fabricating or deploying this — especially for vulnerable users or shared/clinical settings — is responsible for their own safety validation, biocompatibility testing, and regulatory compliance in their jurisdiction. See [`DISCLAIMER.md`](./DISCLAIMER.md) and the FDA-compliance notes in [`air-isolator.md`](./air-isolator.md).

@@ -1,0 +1,46 @@
+SipNPuff Air Isolator - Unit Cost Model (low-volume / 3D-printed) - V0.1,,,
+Currency: USD. Edit the INPUTS block; recompute CALCULATION rows using the Basis column. CSV stores values only (no live formulas).,,,
+Figures reflect the measured V0.1 1/4-inch build (front + rear shells) with a screw-together assembly.,,,
+,,,
+INPUTS (edit these),Value,Unit,Note / source
+Printed part mass per Unit,26,g,Measured V0.1 1/4-inch build: front ~11.8 g + rear ~14.1 g
+Filament price,25,$/kg,PETG; PLA ~18-22
+Filament price per gram,0.025,$/g,= filament price / 1000
+Finger cot (membrane),0.08,$/ea,Nitrile; ~$10-14 per box of 144 (Uline / Dukal / MFASCO)
+Assembly screws,0.06,$/Unit,~2 small screws (self-tapping or machine + optional heat-set insert)
+Printer power draw,0.12,kW,~120 W average FDM
+Print time per plate,6,h,Unattended; taller V0.1 parts
+Electricity rate,0.30,$/kWh,California residential approx.
+Units per plate,12,count,~34 mm footprint; front + rear per Unit
+Assembly time per Unit,3,min,Seat cot; align shells; drive screws
+Harvest / prep per plate,10,min,Remove parts; prep bed for next plate
+Labor rate,20,$/h,Per user
+Labor rate per minute,0.3333,$/min,= labor rate / 60
+Machine amortization (optional),0,$/printer-h,"Set e.g. 0.50 to include nozzle/belt wear + depreciation"
+,,,
+PER-UNIT COST (mid case),Basis,$/Unit,
+Filament,mass x $/g = 26 x 0.025,0.65,
+Finger cot membrane,input,0.08,
+Assembly screws,input,0.06,
+Printer electricity,(0.12 kW x 6 h x 0.30) / 12,0.02,
+Materials subtotal,sum of above,0.81,
+Assembly labor,3 min x 0.3333,1.00,
+Harvest / prep labor,(10 min x 0.3333) / 12,0.28,
+Machine amortization,(0 x 6 h) / 12,0.00,
+Labor + overhead subtotal,sum,1.28,
+TOTAL PER UNIT,materials + labor,2.09,
+,,,
+PER-PLATE (12 Units),Basis,Value,Unit
+Materials per plate,0.81 x 12,9.72,$
+Labor per plate,1.28 x 12,15.36,$
+Total per plate,materials + labor,25.08,$
+Unattended print time,input,6,h
+Hands-on time,(3 x 12) + 10,46,min
+,,,
+SCENARIO BAND,$/Unit,,Drivers
+Low,1.50,,PLA; 2 min assembly; more per plate
+Mid,2.09,,26 g PETG; 3 min assembly; 12 per plate
+High,3.00,,heavier print; slower assembly; 8 per plate (+~0.50 if amortization on)
+,,,
+NOTE,,,
+Labor is ~60% of total; materials ~40%. Bigger V0.1 parts (~26 g) push filament cost up vs. the V0 estimate. A printed assembly jig + fewer/faster screws can pull assembly time and cost down.,,,

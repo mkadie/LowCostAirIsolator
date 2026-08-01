@@ -1,0 +1,311 @@
+# Air Isolator — Hygienic Diaphragm Barrier for Sip-and-Puff Input
+
+**Project:** SipNPuff (github.com/mkadie/SipNPuff)
+**Status:** Design note / proposal → **manuscript-in-progress**
+**Scope:** A cheap, user-replaceable membrane that isolates the user's breath (moisture, saliva, pathogens) from the pressure sensor and electronics, suitable for our device and reusable across other open-source assistive projects. Sip-and-puff is a long-established breath-pressure access method for users with severe mobility impairment [1, 2].
+
+**Target venue:** **HardwareX** (Elsevier; peer-reviewed open-access, open-source hardware; ISSN 2468-0672) — see the *HardwareX submission map* at the end. Backup: *Journal of Open Hardware*. As a standalone open-hardware article, this is the archival home for the isolator contribution; the SipNPuff paper should **cite** it rather than re-publish it (one archival home per contribution).
+
+### Abstract (draft — validation results pending bench tests)
+
+Breath-actuated assistive devices (sip-and-puff switches) expose their pressure sensors to saliva, condensate, and pathogens, yet hygienic isolation is rarely addressed in do-it-yourself and low-cost assistive technology. We present an open-source, 3D-printable *air isolator*: a few-cent, latex-free, user-replaceable elastomer membrane (nitrile finger cot or non-latex dental dam) that fully separates the breath path from the pressure sensor, providing both sensor protection and between-user infection control. The design adapts the medical pressure-transducer diaphragm principle for fused-filament fabrication and common medical consumables, and includes a sealed glue-in "Unit" variant, a screw-together (cot-replaceable) Unit, and a ball-and-socket joystick variant. The central design constraint is membrane tension: a slack, rolling-diaphragm geometry is predicted to preserve the soft-sip/soft-puff sensitivity that a taut membrane degrades. We *[will]* quantify this slack-vs-taut-vs-direct tradeoff and thermal-drift behavior on the bench, and we report low-volume fabrication cost (~$2.10/unit). All design files, bill of materials, and a parametric cost model are released under an open license for reuse across assistive-technology projects.
+
+> *Drafting note:* the italicized claims above become results only after the bench characterization (see submission map, Validation). HardwareX requires demonstrated operation and characterization — this is the gating work before submission.
+
+### Figures & files
+
+- **[`air-isolator-geometry.svg`](./air-isolator-geometry.svg)** — membrane mounting cross-sections: Option A (finger cot on a boss) and Option B (flat dental-dam sheet in a clamp + O-ring).
+- **[`air-isolator-glued-unit.svg`](./air-isolator-glued-unit.svg)** — the sealed glue-in disposable Unit; cot cuff captured in the seam, barbed spigot push-fits into the sensor tube.
+- **[`air-isolator-joystick.svg`](./air-isolator-joystick.svg)** — joystick variant: the Unit on a ball-and-socket pivot with contactless Hall tilt sensing, plus the air path to the pressure sensor.
+- **[`air-isolator-cost-model.csv`](./air-isolator-cost-model.csv)** — editable per-Unit / per-plate cost model.
+
+> All paths are repo-relative; keep these files in the same folder as this document so the links resolve on GitHub.
+
+---
+
+## Specifications table
+
+| | |
+|---|---|
+| Hardware name | T-Rex Talk Air Isolator — breath/sensor isolator for sip-and-puff input |
+| Subject area | Engineering and materials science; Medical / assistive technology (AAC) |
+| Hardware type | Mechanical front-end; isolation barrier for a breath-pressure sensor |
+| Closest commercial analog | Disposable inline bacterial/viral (spirometry) filter; no direct low-cost AAC equivalent |
+| Open-source license | MIT (per SipNPuff repository) |
+| Cost of materials | ≈ US$0.80 per Unit (≈ US$2.10 including low-volume labor) |
+| Source file repository | github.com/mkadie/LowCostAirIsolator (+ Zenodo DOI to be minted) |
+
+**Device-specific specifications**
+
+| | |
+|---|---|
+| Membrane | Nitrile finger cot or non-latex dental dam (latex-free); ~0.08 mm |
+| Isolation | Full physical barrier between breath path and sensor |
+| Mounting options | Stretch-over-boss, clamp + O-ring, or sealed glue-in Unit |
+| Print process | FFF; ≈ 26 g polymer (PETG) per Unit (V0.1 1/4" build), two shells |
+| Batch throughput | ≈ 12 Units per ~220 × 220 mm bed |
+| Compatible input | Sip/puff pressure; optional ball-and-socket joystick variant |
+
+---
+
+## Concept
+
+A flexible membrane separates the "dirty" breath path from a sealed "clean" air pocket facing the pressure sensor. Sip/puff pressure deflects the membrane, which transmits the pressure into the clean pocket without any breath, condensate, or saliva touching the sensor. This is the same diaphragm-isolation principle used in medical pressure transducers to keep a sensor sterile across patients, so the approach is proven — the engineering is in getting the membrane compliance, sealing, and drift handling right.
+
+The barrier serves two goals at once:
+
+1. **Protect the electronics** — keep the MEMS pressure sensor dry and clean for the life of the device.
+2. **Infection control** — provide a full physical barrier between the user and the reusable hardware, with a swappable consumable for hygiene between sessions or users. Disposable inline barriers are standard practice on breath-driven medical devices to prevent cross-infection and protect equipment [3, 4].
+
+---
+
+## Critical design rule: the membrane must be slack, not taut
+
+A tensioned membrane has its own spring constant that adds directly to the pneumatic system. It resists deflection, kills sensitivity on **soft sips/puffs** (exactly the thresholds that are already hardest to detect reliably), and introduces hysteresis. Use a **loose / rolling-diaphragm geometry** so the membrane contributes near-zero stiffness over the working range and simply floats the pressure across. Slack beats taut every time.
+
+---
+
+## Architecture
+
+Make the entire dirty path a single snap-in **consumable front module**:
+
+```
+[ mouthpiece ] -- [ tube ] -- [ chamber w/ membrane ] || [ clean pocket + sensor ]
+\___________ replaceable consumable ___________/         \___ permanent, stays clean ___/
+```
+
+- **Puff** (positive pressure) pushes the membrane toward the clean side → compresses the trapped pocket → sensor reads positive.
+- **Sip** (negative pressure) pulls the membrane away → trapped pocket expands → sensor reads negative.
+- Both directions work with one membrane and one sealed pocket.
+
+The sensor and PCB never see breath. Only the cheap front module is ever replaced.
+
+---
+
+## Membrane material selection
+
+**Hard requirement: latex-free.** Latex allergy is a serious liability in an assistive-tech context where users have prolonged oral contact; an estimated 8–12% of regularly exposed health-care workers become sensitized, and natural-rubber-latex devices (including balloons and condoms) are well-documented allergens [5, 6, 7]. The condom option (raised earlier) is dropped — same physics is available from cleaner-to-source, lower-friction materials below.
+
+**Watch out:** most "latex-free balloons" sold for parties are **Mylar / foil (PET film)** and are *not* elastic — they will not work as a pressure diaphragm. Genuinely elastic non-latex materials are **nitrile, polyisoprene, chloroprene, and polyurethane**.
+
+### Recommended (in order of practicality)
+
+1. **Nitrile finger cot — best "balloon" analog.**
+   Pre-rolled, ~0.08 mm (≈3 mil) thin, latex-free and powder-free, and dirt cheap in bulk. The rolled open end is effectively a self-sealing balloon neck: roll it onto a printed cylindrical boss/barb and it seals mechanically with zero adhesive, while staying tool-free to swap. This is the closest thing to the "balloon" idea without latex and without the sourcing problems.
+
+2. **Non-latex dental dam sheet (polyisoprene or nitrile).**
+   Flat elastic sheet — ideal for a clamp-ring / O-ring mounting design rather than stretch-over-a-barb. Medical-grade, tear-resistant, available in thin/medium gauges (pick thinner for lower stiffness). Polyisoprene and nitrile versions both exist.
+
+3. **Elastic non-latex balloon (only if you specifically want a balloon form).**
+   Use **chloroprene** ("cloudbuster"-type) or **polyurethane** balloons, or Qualatex-style stretchy-plastic "Bubbles." Avoid anything foil/Mylar.
+
+### Sourcing
+
+| Material | Example product / line | Supplier(s) | Notes |
+|---|---|---|---|
+| Nitrile finger cot | Powder-free nitrile, 2¾", latex-free (e.g. Uline S-15365M) | uline.com | Beaded/rolled edge, sized S–XL |
+| Nitrile finger cot | Dukal 4404M, pre-rolled, 0.08 mm min, 144/box | American Hospital Supply, PureLife Dental | Medical, non-sterile |
+| Nitrile finger cot | 0.08 mm, 144/box, sizes S–XL | MFASCO Health & Safety | Cheap bulk |
+| Nitrile finger cot | 100% synthetic nitrile, ISO-5 cleanroom grade | Fisher Scientific, Valutek | Cleanest/most consistent |
+| Non-latex dental dam | Hygenic Non-Latex (synthetic, powder-free, 6"×6") | Henry Schein, Scott's Dental, DHP | High tear resistance |
+| Non-latex dental dam | ISODAM / "isolate" / Hedy polyisoprene | PureLife Dental, Endo-Tech | Polyisoprene |
+| Non-latex dental dam | PureOrtho / PureSense nitrile | PureLife Dental | Nitrile |
+
+> Reference URLs collected during sourcing:
+> Uline finger cots — https://www.uline.com/Product/Detail/S-15365M/Finger-Cots-Tape/Nitrile-Finger-Cots-Powder-Free-Medium
+> Dukal 4404M — https://www.american-hospitalsupply.com/products/nitrile-nonsterile-powder-free-finger-cot
+> MFASCO — https://www.mfasco.com/products/first-aid-supplies-finger-cots-guards-nitrile-finger-cot-144-bx
+> Fisher Scientific finger cots — https://www.fishersci.com/us/en/browse/90136137/Finger-Cots
+> Hygenic Non-Latex dam — https://www.henryschein.com/non-latex-rubber-dam.aspx
+> Polyisoprene / nitrile dams — https://www.purelifedental.com/rubber-dams/dental-dams-non-latex.html
+
+---
+
+## Mounting & sealing (3D-printed housing)
+
+Printed plastic leaks through layer lines, so do not rely on the print alone for the seal. See **[`air-isolator-geometry.svg`](./air-isolator-geometry.svg)** for both mounting options in cross-section.
+
+- **Stretch-over-a-barb (preferred for finger cot / balloon):** print a cylindrical boss; roll the membrane's rolled edge onto it. Self-sealing like a balloon on its own neck, and tool-free to replace. Add a shallow retention groove or bead so it can't creep off under repeated sip suction.
+- **Clamp ring / O-ring (preferred for dental-dam sheet):** capture the flat sheet between a printed ring and the body with an O-ring in a groove. Gives a clean, leak-tight clamp around the full perimeter.
+- Keep the membrane slack in either case — leave slack length so it can roll/float rather than stretch.
+
+### Fallback: sealed glue-in "Unit"
+
+If neither the stretch-over-boss nor the clamp/O-ring approach seals reliably or repeatably, don't fight it — the printed plastic is cheap enough that the whole front module can become a single sealed, replaceable **Unit**. Insert the finger cot (or sheet), then bond the housing halves airtight (glue / solvent weld / gasketed snap) so the membrane seal is captured at assembly and never has to be field-serviced. The user swaps the entire low-cost Unit rather than re-seating a membrane.
+
+This trades a tool-free in-field membrane swap for guaranteed sealing and dead-simple assembly. Given the per-Unit material cost is on the order of a finger cot plus a few grams of filament, treating the module as a disposable/replicable Unit is a perfectly acceptable — and arguably more robust — production path. Keep the membrane slack inside the Unit regardless. Cross-section: **[`air-isolator-glued-unit.svg`](./air-isolator-glued-unit.svg)**.
+
+### Joystick variant
+
+The same sealed Unit can ride on a ball-and-socket pivot so the mouthpiece doubles as a joystick: tilt moves the cursor (2-axis) while sip/puff through the same mouthpiece provides clicks. Mouth-operated joysticks and magnetic position sensing are established in assistive control — e.g., the magnetic Tongue Drive System, which uses an intra-oral magnet as a joystick analog [10]. Tilt is read contactlessly by a magnet on the ball over a 3-axis Hall sensor (no wear, sealed, low power — fits the RP2350 / Seesaw I²C path) [11, 12]; the sip/puff air runs through a flexible tube routed off-axis through the ball to the pressure sensor, and a centering boot recenters the stick and seals the socket. The Unit push-fits onto the stem and into the air tube, so hygiene swaps never touch the mechanism. Cross-section: **[`air-isolator-joystick.svg`](./air-isolator-joystick.svg)**.
+
+---
+
+## Electrical / firmware notes
+
+- **Thermal drift:** warm, humid breath heats the trapped pocket and shifts the baseline. Handle with firmware **auto-zeroing / baseline tracking** on the sip/puff signal.
+- **Optional slow bleed:** a very slow bleed on the *clean* side through a 0.2 µm hydrophobic PTFE filter lets DC drift escape to ambient while the dynamic sip/puff signal still registers and the barrier stays clean. Often unnecessary if firmware baseline tracking is solid — evaluate empirically.
+- **Sensor referencing:** decide gauge vs. differential. For the sealed-pocket design, a gauge or differential sensor referenced to ambient (with the reference/bleed port on the clean side only) is the natural choice. (Open question — see below.)
+
+---
+
+## Alternative considered: off-the-shelf hydrophobic vent
+
+A **hydrophobic PTFE vent** (Gore-style) directly over the sensor port passes gas while blocking liquid and bacteria, so it reads *true* pressure with zero added mechanical compliance and no diaphragm-stiffness problem [8, 9]. Inline spirometry/viral filters are a similar certified option [3, 4].
+
+**Tradeoff:** it's a higher-cost per-unit consumable and is a liquid/pathogen barrier rather than a full physical wall between users. The membrane approach wins for the cheap, fully-isolating, user-replaceable goal; the vent is the lower-effort path if "keep the sensor dry" matters more than full between-user isolation. Worth keeping as a fallback / variant.
+
+---
+
+## Why this fits open-source assistive hardware
+
+The consumable is a few cents (a finger cot or a dental-dam square), medical-grade, latex-free, and swappable with no tools. Any downstream project can adopt the same boss/clamp interface and source the membrane from common medical suppliers. The reusable electronics stay clean indefinitely. Open-source, locally 3D-printed assistive devices are a well-established model [13, 14, 15]; a comparable open-source 3D-printed orthosis reported roughly 1.5 h assembly and ~$15 material cost [13], closely paralleling the per-Unit economics below.
+
+---
+
+## Cost (low-volume / 3D-printed)
+
+Full line-item math, editable inputs, and scenario band live in **[`air-isolator-cost-model.csv`](./air-isolator-cost-model.csv)** — edit the INPUTS block there and recompute. Summary at mid-case assumptions:
+
+- **≈ $2.10 per Unit**, **≈ $25 per plate of 12** (≈ $9.70 materials + ≈ $15.40 labor).
+- **Labor is ~60% of cost; materials ~40%** (~$0.80/Unit materials). Bigger V0.1 parts (~26 g) raise filament cost versus the earlier estimate.
+- Scenario band: **~$1.50 (low) – ~$2.10 (mid) – ~$3.00 (high)** per Unit. Optional machine amortization adds ~$0.20–0.25/Unit.
+- Assumes $20/hr labor, batch ("plateful") assembly, ~12 Units per ~220×220 mm bed, ~4 h unattended print per plate, and a placeholder ~8 g part — **part mass and per-Unit assembly time are the two biggest uncertainties** until CAD and a real slicer estimate exist.
+
+Practical takeaways: printing is unattended, so the only print-side labor is starting the job and harvesting the plate — which is exactly why batching by the plateful collapses per-Unit overhead. A printed assembly jig that holds the shell while seating the cot and driving the screws can pull the mid case toward ~$1.60. At ~$0.80/Unit material cost, the low plastic cost is what keeps the disposable-mouthpiece and replaceable-cot models viable.
+
+> When the design firms up, update the CSV inputs (part mass from the slicer, measured assembly time) and these figures re-derive directly.
+
+---
+
+## Bill of materials (per Unit — materials only)
+
+| Designator | Component | No. | Cost/unit (USD) | Total (USD) | Source | Material type |
+|---|---|---|---|---|---|---|
+| FS | Front shell (mouthpiece + chamber), 3D-printed, ~11.8 g | 1 | — | 0.30 | FFF, PETG filament | Polymer (PETG) |
+| RS | Rear shell + spigot, 3D-printed, ~14.1 g | 1 | — | 0.35 | FFF, PETG filament | Polymer (PETG) |
+| SCR | Assembly screws (clamp shells + cot cuff) | ~2 | 0.03 | 0.06 | General hardware supplier | Steel (optional heat-set insert) |
+| MEM | Membrane — nitrile finger cot (or non-latex dental dam) | 1 | 0.08 | 0.08 | Uline S-15365M / Dukal 4404M / MFASCO | Elastomer (nitrile) |
+| | **Materials total** | | | **≈ 0.79** | | |
+
+Filament basis ≈ 26 g @ US$25/kg (PETG), measured from the V0.1 1/4" shells. The screw-together design clamps the cot cuff, so fasteners replace the earlier glue line. Per HardwareX convention this table is materials-only; labor and per-plate economics live in `air-isolator-cost-model.csv`.
+
+---
+
+---
+
+## Mouthpiece hygiene strategy
+
+The mouth-contacting surface is handled with a tiered strategy matched to the fabricator's capability, because this is open-source hardware built by makers of very different resources. The membrane and tubing remain the **primary** hygienic barrier, so the printed mouthpiece surface is a second-line, comfort-and-cleanliness concern — not the sole safety line.
+
+Why tiered: FFF layer lines are porous and trap bacteria that ordinary washing (even a dishwasher) doesn't reliably remove, so a reused, untreated mouthpiece degrades hygienically over days-to-weeks. Coatings and biocompatible-SLA can fix the surface but depend on maker skill and quality control an open project can't enforce. So the baseline is a cheap, frequently-replaced disposable, with better finishes offered as optional tiers.
+
+- **Baseline (all builds):** a small snap-on **disposable mouthpiece** in an easy, accessible plastic (PLA, or food-grade PETG/PCTG), washed between uses and replaced on schedule. Split the mouthpiece from the Unit/electronics so the disposable is a fraction of a gram — pennies and minutes to reprint.
+- **Optional (capable hobbyist):** a reusable mouthpiece finished with brush/dip food-grade epoxy or a food-grade silicone cover/dip — documented, with a cure-verification step. Never mix epoxy and platinum silicone (amine cure inhibition). Hand-wash only.
+- **Clinical / pro SKU:** a mouthpiece printed in **certified biocompatible SLA dental resin** with the validated wash + UV post-cure (biocompatibility is only valid if that process is followed).
+
+**Replacement schedule (X), risk-tiered:**
+
+- **Shared / clinical / multi-user:** single-patient use — never shared; replace per user or per session.
+- **Personal, single user:** wash after each use; replace ~weekly (conservative) to biweekly.
+- Rationale: colonization is time- and moisture-driven and invisible, so err short — the disposable costs pennies.
+
+No printed or coated surface should be assumed dishwasher-safe (PLA/PETG/PCTG soften ~60–80 °C); hand-wash. This is design guidance, **not** a validated infection-control protocol — see disclaimer.
+
+---
+
+## Open questions / next steps
+
+- [ ] Pick membrane #1 form factor: finger-cot-on-boss vs. dental-dam-on-clamp. Prototype both.
+- [ ] Define sensor referencing (gauge vs. differential) and whether the clean-side bleed is needed.
+- [ ] Bench-test soft-sip / soft-puff threshold sensitivity with a slack membrane vs. direct (no isolator) to quantify any loss.
+- [ ] Characterize thermal drift over a 60 s continuous-use window; tune auto-zero.
+- [ ] Spec the consumable front-module geometry and a tool-free retention detail.
+- [ ] Decide swap model: re-seatable membrane vs. sealed glue-in Unit. If field sealing is unreliable, default to the disposable Unit (insert cot → bond airtight) given low plastic cost.
+- [ ] Confirm membrane material chemical/biocompatibility for oral-adjacent use (the membrane is the only mouth-facing surface).
+- [ ] **Mouthpiece shell material & finish:** print the front shell in a transparent food-contact-grade copolyester (food-grade PCTG, e.g. Fiberlogy transparent, or a GN071-based PETG) with a stainless/hardened-steel nozzle; prefer transparent/natural colors (pigments/UV additives are usually untested for food contact). For true mouth-contact safety, seal with a brush/dip food-grade epoxy (e.g. ArtResin, MAX CLR) once fully cured, or fit a food-grade silicone cover — **hand-wash only, not dishwasher** (PLA/PETG/PCTG soften ~60–80 °C; coatings aren't heat-durable). Membrane + tubing remain the primary hygienic barrier, so the shell is not a food-critical surface.
+- [ ] **Joystick — tube fatigue:** the flexible air tube flexes on every cursor move, all day. Spec a soft silicone tube with a generous service loop and large bend radius at the ball exit; make the tube part of the replaceable consumable path so a stiffened/cracked tube is a cheap swap, not a teardown.
+- [ ] **Joystick — input cross-talk:** tilt and sip/puff are nominally independent, but a hard puff can nudge the stick and a hard tilt can perturb chamber pressure. Plan firmware decoupling (e.g., briefly freeze the cursor during a detected click; debounce pressure events against tilt velocity).
+
+---
+
+## HardwareX submission map
+
+HardwareX is template-driven and requires demonstrated operation plus performance characterization (it will not accept a pure design proposal). This maps the current document to the required sections so the gaps are explicit. Status: ✓ have · ◐ partial · ✗ to-do.
+
+| HardwareX section | Covered by (this doc) | Status |
+|---|---|---|
+| Specifications table | see Specifications table (near top) | ✓ |
+| Hardware in context | Abstract; Concept; Why this fits open-source AT; refs [1]–[9] | ✓ |
+| Hardware description | Architecture; Mounting & sealing; glue-in Unit; Joystick variant; figures | ✓ |
+| Design files summary | the 3 SVG cross-sections — add source CAD/STL, repo link, license, and a **Zenodo DOI** for the archival location | ◐ |
+| Bill of materials | Bill of materials section (HardwareX table) + `air-isolator-cost-model.csv` | ✓ |
+| Build instructions | glue-in Unit assembly + jig notes — expand to numbered steps with photos | ◐ |
+| Operation instructions | sip/puff read principle; joystick control map — add explicit user-facing steps | ◐ |
+| Validation & characterization | slack-vs-taut-vs-direct soft-threshold sensitivity test; 60 s thermal-drift / auto-zero run | ✗ **GATING — run the bench tests** |
+| Safety / ethics / declarations | latex-free rationale [5]–[7]; oral-adjacent biocompatibility check; bench study uses no human subjects; CRediT + conflict-of-interest statement (disclose TSSFAA/commercial intent) | ◐ |
+| References | refs [1]–[15], Elsevier numbered style (below) | ✓ |
+
+Logistics: HardwareX is open-access with an APC on the order of **US$550** and a waiver / geographical-pricing program — modest and likely reducible for an independent maker; confirm the current figure at submission. Mint a **Zenodo DOI** for the SipNPuff release now (zero-cost, citable) to serve as the Design files archival location. Keep this the isolator's single archival home; the SipNPuff paper cites it.
+
+---
+
+## Project status, funding & disclaimer
+
+- **Open-source & unfunded.** This is an unfunded, volunteer, open-source assistive-technology project (MIT / R.O.A.R. / TSSFAA). It is provided **as-is**, for community reuse and reproduction.
+- **Sources.** Some information here draws on manufacturer datasheets, standards, and **non-peer-reviewed sources** (vendor documentation, maker-community reports) alongside peer-reviewed literature. Claims should be independently verified before being relied on; reference entries are flagged where bibliographic details or peer-review status are unconfirmed.
+- **No medical or FDA claims.** The authors make **no assertion** that this device, the Air Isolator, or any component is FDA-cleared, FDA-registered, biocompatibility-certified, or compliant with any medical-device regulation in any jurisdiction. Nothing here is a medical claim, a safety certification, or a substitute for professional or regulatory evaluation. The hygiene and material guidance is **design intent, not a validated infection-control or biocompatibility protocol.**
+- **Use at your own risk.** Anyone fabricating or deploying this — especially for vulnerable users or clinical/shared settings — is responsible for their own safety validation, biocompatibility testing, and regulatory compliance in their jurisdiction.
+
+---
+
+## Path to FDA compliance / certification (what it would take)
+
+This outlines what formal U.S. FDA compliance would involve, for anyone wanting to take the device beyond open-source/personal/research use into a regulated product. It is a **roadmap, not legal or regulatory advice** — consult a regulatory professional.
+
+1. **Classification (driven by intended use).** FDA class depends on the stated intended use and indications. A powered AAC device like this most likely falls under **21 CFR 890.3710, "Powered communication system"** — a battery/AC-powered device for medical purposes used to transmit or receive information by persons unable to use normal communication methods due to physical impairment. That category is **Class II (special controls)** but is **exempt from 510(k) premarket notification**, subject to the limitations in 21 CFR 890.9. Confirm the actual classification/product code for your specific intended use in FDA's product classification database — changing the claimed purpose can change the class, and a sub-component (e.g., the sip/puff switch) may classify separately.
+2. **Premarket submission (if not exempt).** A non-exempt Class I/II device needs a **510(k)** (substantial equivalence to a legally-marketed predicate); a novel low-to-moderate-risk device with no predicate uses a **De Novo** request; high-risk Class III needs a **PMA**. For the likely 890.3710 route, no 510(k) is required — but "exempt" is **not** "unregulated."
+3. **General controls (apply even when 510(k)-exempt).** FDA **establishment registration** and annual **device listing** (with the annual establishment fee); the **Quality System Regulation** (21 CFR 820, transitioning to the ISO 13485-harmonized QMSR, effective 2026); **labeling** (21 CFR 801) and **UDI**; and **Medical Device Reporting** of adverse events — plus the exemption limitations of 890.9 (you may not exceed the intended use or materially change safety/effectiveness).
+4. **Biocompatibility (the mouthpiece).** Patient-contacting materials require a biological evaluation per **ISO 10993-1** (cytotoxicity, sensitization, irritation for mucosal/skin contact). This is exactly where the mouthpiece material and finish matter: biocompatibility of a printed part depends on the material **and** its validated post-process, not just the resin — see the mouthpiece hygiene tiers.
+5. **Supporting evidence.** Design controls / design history file, risk management (**ISO 14971**), and, for powered medical devices, electrical safety and EMC (**IEC 60601** family) plus any performance validation.
+6. **Cost/effort reality.** Even the exempt path carries registration fees and quality-system overhead; a full 510(k) path adds FDA user fees (reduced for small businesses), testing, and typically regulatory consulting — realistically tens of thousands of dollars and many months. This is a core reason the open-source route deliberately makes **no** compliance claim.
+7. **Other markets.** FDA is U.S.-only. The EU (**CE marking under the MDR**), Health Canada, and Thailand's FDA (relevant to the Chiang Mai collaboration) each have separate frameworks. An academic or clinical partner's institution can often provide the quality/ethics umbrella that makes formal evaluation feasible.
+
+**Bottom line:** for open-source/personal/research use the device operates **outside** any certified-product claim (see disclaimer). Formal FDA compliance is achievable — the likely AAC classification is even 510(k)-exempt — but still requires registration, a quality system, labeling, biocompatibility evidence for mouth-contact parts, and jurisdiction-specific work, best undertaken with a regulatory professional and an institutional partner.
+
+---
+
+## References
+
+> Elsevier numbered style (HardwareX). In-text markers `[n]` are in order of appearance. Mixed source types (peer-reviewed papers, standards, datasheets, organizational sources) — normal for an open-hardware article, but verify each entry's full bibliographic details (authors, volume, pages, DOI) before submission. Entries needing confirmation are flagged.
+
+[1] J. Morris, M. Jones, Sip-and-puff, in: A. Mihailidis, R. Smith (Eds.), Rehabilitation Engineering, Taylor & Francis, 2023.
+
+[2] A comparative study of assistive technologies for powered wheelchair control (tongue-drive, eye-tracking, voice, sip-and-puff vs. joystick), Int. J. Adv. Sci. Res. Eng. (IJASRE). https://ijasre.net/index.php/ijasre/article/download/1413/1886/2683 (authors/volume to confirm).
+
+[3] Laboratory evaluation of a filter for the control of cross-infection during pulmonary function testing, J. Hosp. Infect. (1992); PMID 1348774 (~99.9% removal of exhaled bacteria). https://pubmed.ncbi.nlm.nih.gov/1348774/ (authors to confirm).
+
+[4] B.L. Graham, et al., Standardization of spirometry 2019 update: an official ATS/ERS technical statement, Am. J. Respir. Crit. Care Med. 200 (2019) e70–e88 (recommends inline bacterial/viral filters). (verify volume/pages).
+
+[5] National Institute for Occupational Safety and Health (NIOSH), Preventing Allergic Reactions to Natural Rubber Latex in the Workplace, DHHS (NIOSH) Publication No. 97-135, 1997. https://archive.cdc.gov/www_cdc_gov/niosh/updates/latexpr.html
+
+[6] National Institute for Occupational Safety and Health (NIOSH/CDC), Preventing Occupational Latex Allergy in Health Care Workers (8–12% of regularly exposed health-care workers sensitized), NIOSH Numbered Publication, 2010. https://www.cdc.gov/niosh/docs/2011-118/default.html
+
+[7] Anesthesia Patient Safety Foundation, Latex allergy: a problem for patients and personnel, APSF Newsletter. https://www.apsf.org/article/latex-allergy-a-problem-for-patients-and-personnel/
+
+[8] Donaldson Company, Tetratex ePTFE membrane vents (technical documentation), Donaldson Venting Solutions. https://www.donaldson.com/en-us/venting/products/eptfe-membrane/
+
+[9] International Polymer Engineering, How can ePTFE keep your delicate sensors from failing? (technical note; sub-1 µm-pore hydrophobic gas-permeable sensor protection). https://ipeweb.com/fluoroflex-eptfe/how-can-eptfe-keep-your-delicate-sensors-from-failing/
+
+[10] X. Huo, C. Cheng, M. Ghovanloo, Tongue drive system for wheeled mobility and computer access (intra-oral magnet used as a joystick analog), IEEE Trans. Biomed. Eng. (2009). (verify exact title/volume/pages).
+
+[11] Melexis, MLX90333 Triaxis 3D / joystick position sensor IC (datasheet; contactless Bx/By/Bz Hall-effect sensing), Melexis NV. https://www.melexis.com/en/product/MLX90333/
+
+[12] Texas Instruments, TMAG3001 / TMAG5273 3D Hall-effect position sensor with I2C interface (datasheet), Texas Instruments. https://www.ti.com/
+
+[13] Design of a 3D-printed, open-source wrist-driven orthosis for individuals with spinal cord injury (open-source AT; ~1.5 h assembly, ~$15 material cost), (2018); PMC5823450. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5823450/ (verify authors/journal/year).
+
+[14] E. Buehler, S.K. Kane, A. Hurst, ABC and 3D: opportunities and obstacles to 3D printing in special education, in: Proc. 16th Int. ACM SIGACCESS Conf. on Computers and Accessibility (ASSETS '14), ACM, 2014, pp. 107–114. (verify pages).
+
+[15] Neil Squire Society, Makers Making Change: open-source assistive technology library. https://www.makersmakingchange.com/
+

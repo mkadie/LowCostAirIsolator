@@ -1,0 +1,91 @@
+# Air Isolator — Working Prototype v1 (preliminary): Release & Call for Feedback
+
+**Part of:** the SipNPuff **Air Isolator** — a latex-free, user-replaceable membrane that isolates a user's breath (saliva, moisture, pathogens) from the pressure sensor and electronics of a sip-and-puff assistive switch. Open-source, R.O.A.R. / TSSFAA.
+
+**Status:** **Working prototype, preliminary.** It screws together and seems to work well in early hands-on use — but it is **not validated**. We want testing, food-safety review, and improvements — from experts, makers, and users alike.
+
+**Plastics / CAD design:** [@JoshDesigns](https://youtube.com/@JoshDesigns) (YouTube)
+**Repository:** github.com/mkadie/LowCostAirIsolator · **STL files:** [`/stl`](./stl) · **Plastics/CAD design:** @JoshDesigns (YouTube) / @Joshuaua (GitHub)
+**License:** CC BY-NC 4.0
+
+**Companion documents:** full design note → `air-isolator.md` · fabrication/material brief → `AirIsolator_Fabrication_Brief.pdf` · mechanism schematic → `air-isolator-screw-unit.svg`
+
+---
+
+## What this is
+
+A first working prototype of the Air Isolator: a few-cent, latex-free, user-replaceable membrane that fully separates the breath path from the pressure sensor, giving both **sensor protection** and **between-user hygiene** in a breath-actuated (sip-and-puff) input device. The full rationale, mounting options, cost model, and references are in `air-isolator.md`.
+
+## What's new in this prototype
+
+- **Screw-together housing.** The two printed shells **screw together and clamp the finger cot cuff at the seam** to form the seal — **no glue**. Because it's screwed rather than bonded, the finger cot is **replaceable**: unscrew, swap the cot, screw it back together. The housing is reusable. (This is the serviceable alternative to the earlier glue-in "Unit," which sealed the cot permanently and was discarded whole — both approaches are documented in the design note.)
+- **STL files on GitHub** so anyone can print and reproduce it — front + rear shells in **1/4"** and **1/8" tube** variants (`SipNPuff_-_FrontShell_-_V0_1_-_*in_Tube.stl`, `SipNPuff_-_RearShell_-_V0_1_-_*in_Tube.stl`) — in [`/stl`](./stl).
+
+![Screw-together Unit — concept schematic (real STLs/photos on GitHub)](./air-isolator-screw-unit.svg)
+
+*Concept schematic. The actual prototype geometry and print-ready files live in the repo.*
+
+## The actual V0.1 parts (measured)
+
+The Unit is a front shell plus a matching rear shell, provided in **two tube-size variants** — 1/4" and 1/8" (the sensor-tube interface differs on the rear shell; the front shell is common to both). Renders below are the 1/4" build; measured specs cover all variants.
+
+| ![Front shell V0.1](./front_render.png) | ![Rear shell V0.1, 1/4in tube](./rear_render.png) |
+|:--:|:--:|
+| **Front shell V0.1** (mouthpiece + chamber) | **Rear shell V0.1** (cavity + spigot, 1/4" tube) |
+
+| Part | Bounding box (mm) | Volume | Mass, PETG | Triangles | Watertight? |
+|---|---|---|---|---|---|
+| Front shell V0.1 (both tube sizes) | 34 × 34 × 63 | 9.3 cm³ | ~11.8 g | 148,352 | Yes |
+| Rear shell V0.1 — 1/4" tube | 32 × 32 × 68 | 11.1 cm³ | ~14.1 g | 26,626 | Yes |
+| Rear shell V0.1 — 1/8" tube | 32 × 32 × 61 | ~9.9 cm³ \* | ~12.6 g \* | 25,926 | **No** \* |
+| **Combined (1/4" build)** | — | ~20.4 cm³ | **~25.9 g** (~8.5 m filament) | — | — |
+
+\* The **1/4" rear shell is now watertight** — the V0 issue is fixed. The **1/8" rear shell V0.1 mesh is still not watertight** (open/non-manifold edges), so its figures are estimates; making it manifold (Blender, Meshmixer, 3D Builder, netfabb, or a slicer's repair) will give clean slicing and an accurate figure. The two front-shell files are geometrically identical.
+
+Two things worth noting from the measurements: the parts are compact (each ~32–34 mm across, ~63–68 mm long) and print well as a batch; and the real combined mass (~26 g PETG for the 1/4" build, ~8.5 m of 1.75 mm filament) is well above the earlier ~8 g placeholder in the cost model — the BOM / cost CSV should be updated to ~24–26 g, and the screw-together design also swaps glue for a couple of fasteners in the BOM.
+
+## How it works (recap)
+
+- A nitrile **finger cot** membrane separates the dirty breath path from the clean sensor side; only the membrane bridges the two.
+- The membrane sits **slack, not stretched**, so it adds near-zero stiffness — a taut membrane kills sensitivity on the soft sips/puffs that are hardest to detect.
+- The **screws clamp the cot cuff** at the seam for the seal; a **barbed spigot push-fits into the sensor tube** on the clean side.
+
+## Print · assemble · source
+
+- **STLs:** [`/stl`](./stl) in this repo.
+- **Materials & printing:** see `AirIsolator_Fabrication_Brief.pdf` — PETG for the shells, transparent food-grade PCTG or GN071-based PETG for the mouthpiece, steel nozzle.
+- **Membrane:** nitrile finger cot (latex-free); sources listed in `air-isolator.md`.
+- **Assembly:** seat a finger cot over the boss so the cuff sits at the seam, screw the shells together to clamp the cuff, then push the spigot into the sensor tube.
+
+## Status, honest caveats & food safety
+
+- **Preliminary & unvalidated.** It seems to work well so far, but we have not run formal tests.
+- **We are not experts.** We're makers and lived-experience assistive-tech builders, working open-source and unfunded. Treat everything here as a starting point, not authority.
+- **It needs testing.** Things we'd most like validated: seal integrity / leak-down; slack-vs-taut membrane sensitivity on soft sips/puffs; thermal drift and auto-zero over continuous use; **screw-clamp durability and thread strength in printed plastic** (stripping, creep, re-torque after cot swaps); finger-cot fit, retention, and longevity; and biocompatibility for oral-adjacent use.
+- **Food safety needs awareness.** The mouthpiece is mouth-adjacent. The membrane and tubing are the actual hygienic barrier, but the printed surface still matters: FFF layer lines are porous, prints are **not dishwasher-safe**, and food-contact-grade material and finishing choices matter. Please follow the **mouthpiece hygiene strategy** in `air-isolator.md` (disposable-baseline mouthpiece, food-grade filament, hand-wash, replace on schedule).
+- **No medical or FDA claims.** We make **no** assertion of FDA clearance, biocompatibility certification, or medical-device compliance. Some information here draws on manufacturer/maker sources rather than peer-reviewed literature. See the full disclaimer and FDA-pathway notes in `air-isolator.md`.
+
+## We're looking for feedback
+
+We'd love feedback from **anyone with relevant expertise**, from **other open-source assistive-device makers**, and above all from **people who use assistive devices** — every perspective helps make this better.
+
+Questions where input would help most:
+
+- Is the **screw-clamp seal** reliable and repeatable?
+
+**How to give feedback:**
+
+- **Open a GitHub Issue or Discussion** at github.com/mkadie/LowCostAirIsolator/issues. Preferred, since it keeps the conversation public and iterable.
+- **Pull requests welcome** — STL/design improvements, better docs, test data.
+- **Email:** main@tssfaa.com.
+
+## Credits & license
+
+- **Idea, research, documentation & testing:** T-Rex (Michael Kadie, [@mkadie](https://github.com/mkadie)) — with Claude (Anthropic) used to help speed research and iterate documentation.
+- **Plastics / CAD design:** [@JoshDesigns](https://youtube.com/@JoshDesigns) (YouTube) / [@Joshuaua](https://github.com/Joshuaua) (GitHub).
+- Part of the **SipNPuff / R.O.A.R.** (Rex's Open Assistive Resources) open-source project, TSSFAA (tssfaa.com).
+- **License:** CC BY-NC 4.0. Please keep the attribution if you build on this.
+
+## Disclaimer
+
+Open-source, unfunded, and preliminary. Provided **as-is, without warranty**. **No FDA, medical-device, or biocompatibility claims** are made about this device or any component. Some information is drawn from non-peer-reviewed sources. Anyone fabricating or deploying this — especially for vulnerable users or shared/clinical settings — is responsible for their own safety validation, biocompatibility testing, and regulatory compliance in their jurisdiction. Full disclaimer and FDA-compliance notes are in `air-isolator.md`.

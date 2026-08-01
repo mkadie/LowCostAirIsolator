@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1016 1320" font-family="'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="8" height="8" fill="#ECEEF1"/>
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#B6BCC4" stroke-width="1.3"/>
+    </pattern>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#1F2933"/>
+    </marker>
+    <marker id="arrowR" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#B23A48"/>
+    </marker>
+    <marker id="arrowG" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#2D6A4F"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="1320" fill="#FBFAF7"/>
+
+  <!-- HEADER -->
+  <text x="40" y="46" font-size="26" font-weight="700" fill="#1F2933">SipNPuff Air Isolator — Membrane Mounting Cross-Sections</text>
+  <text x="40" y="76" font-size="15.5" fill="#5A6470">Two ways to seal a slack, replaceable, latex-free membrane between the breath path (dirty) and the sensor pocket (clean).</text>
+
+  <!-- ============================ OPTION A ============================ -->
+  <rect x="28" y="100" width="904" height="470" rx="10" fill="#FFFFFF" stroke="#E3DFD6"/>
+  <text x="48" y="135" font-size="18" font-weight="700" fill="#0E7C86">Option A — Finger cot rolled onto a boss (stretch-over-barb)</text>
+  <text x="48" y="158" font-size="13.5" fill="#5A6470">Best “balloon” analog. Rolled cuff self-seals on the nozzle; dome is the membrane. Tool-free swap.</text>
+
+  <!-- consumable module shell -->
+  <path d="M150,276 H520 V440 H150 Q120,440 110,400 V340 Q120,276 150,276 Z" fill="none" stroke="#9AA0A6" stroke-width="2" stroke-dasharray="2 2"/>
+  <!-- dirty air fill -->
+  <path d="M160,282 H516 V434 H160 Q128,434 120,398 V342 Q128,282 160,282 Z" fill="#F3DFC9" opacity="0.7"/>
+  <!-- mouthpiece -->
+  <rect x="60" y="330" width="92" height="14" fill="url(#hatch)" stroke="#6B7280" stroke-width="1"/>
+  <rect x="60" y="366" width="92" height="14" fill="url(#hatch)" stroke="#6B7280" stroke-width="1"/>
+  <rect x="60" y="344" width="92" height="22" fill="#F3DFC9"/>
+  <line x1="36" y1="355" x2="120" y2="355" stroke="#1F2933" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="36" y="320" font-size="12.5" fill="#5A6470">breath in</text>
+
+  <!-- permanent body -->
+  <rect x="602" y="250" width="308" height="210" fill="url(#hatch)" stroke="#6B7280" stroke-width="1.5"/>
+  <!-- sensor cavity (clean) carved out -->
+  <rect x="602" y="322" width="270" height="66" fill="#D8EAEF"/>
+  <line x1="602" y1="322" x2="872" y2="322" stroke="#4C97A8" stroke-width="1"/>
+  <line x1="602" y1="388" x2="872" y2="388" stroke="#4C97A8" stroke-width="1"/>
+  <line x1="872" y1="322" x2="872" y2="388" stroke="#4C97A8" stroke-width="1"/>
+  <!-- nozzle walls (two bars) + bore -->
+  <rect x="520" y="328" width="84" height="15" fill="url(#hatch)" stroke="#6B7280" stroke-width="1"/>
+  <rect x="520" y="367" width="84" height="15" fill="url(#hatch)" stroke="#6B7280" stroke-width="1"/>
+  <rect x="520" y="343" width="84" height="24" fill="#D8EAEF"/>
+  <!-- sensor -->
+  <rect x="822" y="338" width="40" height="34" fill="#2A3340" rx="2"/>
+  <text x="842" y="358" font-size="9.5" fill="#FFFFFF" text-anchor="middle">MEMS</text>
+  <text x="842" y="368" font-size="9.5" fill="#FFFFFF" text-anchor="middle">sensor</text>
+
+  <!-- clean trapped air dome interior -->
+  <path d="M520,330 C460,322 398,335 398,355 C398,375 460,388 520,380 Z" fill="#D8EAEF" opacity="0.85"/>
+  <!-- membrane dome (slack) -->
+  <path d="M520,330 C460,322 398,335 398,355 C398,375 460,388 520,380" fill="none" stroke="#0E7C86" stroke-width="3.5"/>
+  <!-- rolled cuff beads -->
+  <ellipse cx="520" cy="330" rx="7" ry="9" fill="#0E7C86"/>
+  <ellipse cx="520" cy="380" rx="7" ry="9" fill="#0E7C86"/>
+
+  <!-- deflection: puff (push right) -->
+  <path d="M520,332 C470,327 444,340 442,355 C444,370 470,383 520,378" fill="none" stroke="#2D6A4F" stroke-width="1.8" stroke-dasharray="5 4"/>
+  <line x1="430" y1="320" x2="470" y2="334" stroke="#2D6A4F" stroke-width="1.6" marker-end="url(#arrowG)"/>
+  <text x="406" y="316" font-size="12.5" font-weight="600" fill="#2D6A4F">+ puff</text>
+  <!-- deflection: sip (bulge left) -->
+  <path d="M520,330 C452,319 372,335 370,355 C372,375 452,391 520,380" fill="none" stroke="#B23A48" stroke-width="1.8" stroke-dasharray="5 4"/>
+  <line x1="392" y1="408" x2="372" y2="382" stroke="#B23A48" stroke-width="1.6" marker-end="url(#arrowR)"/>
+  <text x="356" y="424" font-size="12.5" font-weight="600" fill="#B23A48">− sip</text>
+
+  <!-- optional bleed -->
+  <line x1="668" y1="322" x2="668" y2="300" stroke="#4C97A8" stroke-width="1.4"/>
+  <rect x="636" y="278" width="74" height="22" rx="3" fill="#EAF4F6" stroke="#4C97A8" stroke-width="1"/>
+  <text x="673" y="293" font-size="9.5" fill="#2A6470" text-anchor="middle">0.2 µm PTFE bleed</text>
+
+  <!-- labels A -->
+  <text x="170" y="252" font-size="12.5" fill="#C98A4B" font-weight="600">dirty breath path</text>
+  <text x="688" y="312" font-size="12.5" fill="#2A6470" font-weight="600">clean trapped air → sensor</text>
+
+  <line x1="300" y1="200" x2="430" y2="350" stroke="#5A6470" stroke-width="1"/>
+  <text x="150" y="186" font-size="12.5" fill="#1F2933" font-weight="600">Slack dome = finger cot (latex-free)</text>
+  <text x="150" y="200" font-size="11.5" fill="#5A6470">leave slack — NOT drum-tight</text>
+
+  <line x1="500" y1="468" x2="520" y2="384" stroke="#5A6470" stroke-width="1"/>
+  <text x="430" y="486" font-size="11.5" fill="#1F2933">rolled cuff in retention groove (seal)</text>
+
+  <line x1="560" y1="240" x2="560" y2="328" stroke="#5A6470" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="500" y="234" font-size="11.5" fill="#1F2933">hollow boss → bore</text>
+
+  <!-- brackets A -->
+  <path d="M120,540 H520" stroke="#9AA0A6" stroke-width="1.4"/>
+  <path d="M120,535 V545 M520,535 V545" stroke="#9AA0A6" stroke-width="1.4"/>
+  <text x="320" y="560" font-size="12" fill="#5A6470" text-anchor="middle">CONSUMABLE front module (swap for hygiene)</text>
+  <path d="M602,540 H910" stroke="#9AA0A6" stroke-width="1.4"/>
+  <path d="M602,535 V545 M910,535 V545" stroke="#9AA0A6" stroke-width="1.4"/>
+  <text x="756" y="560" font-size="12" fill="#5A6470" text-anchor="middle">PERMANENT (sensor + electronics stay clean)</text>
+
+  <!-- ============================ OPTION B ============================ -->
+  <rect x="28" y="592" width="904" height="470" rx="10" fill="#FFFFFF" stroke="#E3DFD6"/>
+  <text x="48" y="627" font-size="18" font-weight="700" fill="#0E7C86">Option B — Flat dental-dam sheet in a clamp + O-ring</text>
+  <text x="48" y="650" font-size="13.5" fill="#5A6470">Flat membrane captured around its full perimeter. Best for sheet stock (polyisoprene / nitrile).</text>
+
+  <!-- centerline cy = 838 -->
+  <!-- consumable module shell -->
+  <path d="M150,768 H552 V908 H150 Q120,908 112,872 V804 Q120,768 150,768 Z" fill="none" stroke="#9AA0A6" stroke-width="2" stroke-dasharray="2 2"/>
+  <path d="M160,774 H548 V902 H160 Q128,902 120,870 V806 Q128,774 160,774 Z" fill="#F3DFC9" opacity="0.7"/>
+  <!-- mouthpiece -->
+  <rect x="60" y="813" width="92" height="14" fill="url(#hatch)" stroke="#6B7280" stroke-width="1"/>
+  <rect x="60" y="849" width="92" height="14" fill="url(#hatch)" stroke="#6B7280" stroke-width="1"/>
+  <rect x="60" y="827" width="92" height="22" fill="#F3DFC9"/>
+  <line x1="36" y1="838" x2="120" y2="838" stroke="#1F2933" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="36" y="803" font-size="12.5" fill="#5A6470">breath in</text>
+
+  <!-- permanent body with port -->
+  <rect x="560" y="668" width="350" height="170" fill="url(#hatch)" stroke="#6B7280" stroke-width="1.5"/>
+  <rect x="560" y="838" width="350" height="0"/>
+  <rect x="560" y="668" width="350" height="340" fill="none"/>
+  <rect x="560" y="668" width="350" height="340" fill="url(#hatch)" stroke="#6B7280" stroke-width="1.5"/>
+  <!-- clean cavity carved -->
+  <rect x="566" y="788" width="306" height="100" fill="#D8EAEF"/>
+  <line x1="566" y1="788" x2="872" y2="788" stroke="#4C97A8" stroke-width="1"/>
+  <line x1="566" y1="888" x2="872" y2="888" stroke="#4C97A8" stroke-width="1"/>
+  <line x1="872" y1="788" x2="872" y2="888" stroke="#4C97A8" stroke-width="1"/>
+  <!-- sensor -->
+  <rect x="822" y="821" width="40" height="34" fill="#2A3340" rx="2"/>
+  <text x="842" y="841" font-size="9.5" fill="#FFFFFF" text-anchor="middle">MEMS</text>
+  <text x="842" y="851" font-size="9.5" fill="#FFFFFF" text-anchor="middle">sensor</text>
+
+  <!-- membrane (slack, slight bow) -->
+  <path d="M558,790 Q547,838 558,886" fill="none" stroke="#0E7C86" stroke-width="3.5"/>
+  <!-- O-rings in groove (top/bottom of port) -->
+  <circle cx="560" cy="790" r="6.5" fill="#0E7C86"/>
+  <circle cx="560" cy="886" r="6.5" fill="#0E7C86"/>
+  <!-- clamp ring bars -->
+  <rect x="546" y="778" width="22" height="12" rx="2" fill="#C9CDD3" stroke="#6B7280" stroke-width="1"/>
+  <rect x="546" y="886" width="22" height="12" rx="2" fill="#C9CDD3" stroke="#6B7280" stroke-width="1"/>
+
+  <!-- deflection puff (bow right into cavity) -->
+  <path d="M558,792 Q582,838 558,884" fill="none" stroke="#2D6A4F" stroke-width="1.8" stroke-dasharray="5 4"/>
+  <line x1="540" y1="730" x2="572" y2="800" stroke="#2D6A4F" stroke-width="1.6" marker-end="url(#arrowG)"/>
+  <text x="520" y="724" font-size="12.5" font-weight="600" fill="#2D6A4F">+ puff</text>
+  <!-- deflection sip (bow left) -->
+  <path d="M558,790 Q520,838 558,886" fill="none" stroke="#B23A48" stroke-width="1.8" stroke-dasharray="5 4"/>
+  <line x1="500" y1="900" x2="528" y2="858" stroke="#B23A48" stroke-width="1.6" marker-end="url(#arrowR)"/>
+  <text x="470" y="916" font-size="12.5" font-weight="600" fill="#B23A48">− sip</text>
+
+  <!-- optional bleed B -->
+  <line x1="668" y1="788" x2="668" y2="766" stroke="#4C97A8" stroke-width="1.4"/>
+  <rect x="636" y="744" width="74" height="22" rx="3" fill="#EAF4F6" stroke="#4C97A8" stroke-width="1"/>
+  <text x="673" y="759" font-size="9.5" fill="#2A6470" text-anchor="middle">0.2 µm PTFE bleed</text>
+
+  <!-- labels B -->
+  <text x="180" y="744" font-size="12.5" fill="#C98A4B" font-weight="600">dirty breath path</text>
+  <text x="688" y="778" font-size="12.5" fill="#2A6470" font-weight="600">clean trapped air → sensor</text>
+
+  <line x1="300" y1="700" x2="552" y2="838" stroke="#5A6470" stroke-width="1"/>
+  <text x="150" y="690" font-size="12.5" fill="#1F2933" font-weight="600">Flat dental-dam sheet (polyisoprene / nitrile)</text>
+
+  <line x1="430" y1="958" x2="552" y2="858" stroke="#5A6470" stroke-width="1"/>
+  <text x="300" y="976" font-size="11.5" fill="#1F2933">slack — let it bow, don’t stretch</text>
+
+  <line x1="600" y1="686" x2="562" y2="784" stroke="#5A6470" stroke-width="1"/>
+  <text x="586" y="680" font-size="11.5" fill="#1F2933">clamp ring + O-ring capture full perimeter</text>
+
+  <!-- brackets B -->
+  <path d="M120,1032 H552" stroke="#9AA0A6" stroke-width="1.4"/>
+  <path d="M120,1027 V1037 M552,1027 V1037" stroke="#9AA0A6" stroke-width="1.4"/>
+  <text x="336" y="1052" font-size="12" fill="#5A6470" text-anchor="middle">CONSUMABLE front module</text>
+  <path d="M560,1032 H910" stroke="#9AA0A6" stroke-width="1.4"/>
+  <path d="M560,1027 V1037 M910,1027 V1037" stroke="#9AA0A6" stroke-width="1.4"/>
+  <text x="735" y="1052" font-size="12" fill="#5A6470" text-anchor="middle">PERMANENT (electronics stay clean)</text>
+
+  <!-- ============================ LEGEND ============================ -->
+  <rect x="28" y="1084" width="904" height="206" rx="10" fill="#FFFFFF" stroke="#E3DFD6"/>
+  <text x="48" y="1116" font-size="15" font-weight="700" fill="#1F2933">Legend</text>
+
+  <rect x="48" y="1130" width="22" height="14" fill="#F3DFC9" stroke="#C98A4B"/>
+  <text x="78" y="1142" font-size="12.5" fill="#1F2933">Breath path (dirty) — moisture / saliva / pathogens</text>
+
+  <rect x="48" y="1156" width="22" height="14" fill="#D8EAEF" stroke="#4C97A8"/>
+  <text x="78" y="1168" font-size="12.5" fill="#1F2933">Sealed clean pocket — trapped air column to the sensor</text>
+
+  <line x1="48" y1="1189" x2="70" y2="1189" stroke="#0E7C86" stroke-width="3.5"/>
+  <text x="78" y="1193" font-size="12.5" fill="#1F2933">Membrane — slack, replaceable, latex-free</text>
+
+  <rect x="500" y="1130" width="22" height="14" fill="url(#hatch)" stroke="#6B7280"/>
+  <text x="530" y="1142" font-size="12.5" fill="#1F2933">3D-printed plastic</text>
+
+  <line x1="500" y1="1163" x2="522" y2="1163" stroke="#2D6A4F" stroke-width="1.8" stroke-dasharray="5 4"/>
+  <line x1="500" y1="1189" x2="522" y2="1189" stroke="#B23A48" stroke-width="1.8" stroke-dasharray="5 4"/>
+  <text x="530" y="1167" font-size="12.5" fill="#1F2933">Deflected: + puff</text>
+  <text x="530" y="1193" font-size="12.5" fill="#1F2933">Deflected: − sip</text>
+
+  <line x1="48" y1="1216" x2="908" y2="1216" stroke="#E3DFD6"/>
+  <text x="48" y="1240" font-size="12.5" fill="#5A6470">Reading: puff pushes the membrane toward the clean pocket → trapped pressure rises → sensor reads +.  Sip pulls it back → pressure drops → sensor reads −.</text>
+  <text x="48" y="1262" font-size="12.5" fill="#5A6470">Keep the membrane slack so it adds ~zero stiffness (protects soft-sip / soft-puff sensitivity). Firmware auto-zeros baseline to reject warm-breath thermal drift;</text>
+  <text x="48" y="1282" font-size="12.5" fill="#5A6470">put any slow bleed + 0.2 µm hydrophobic PTFE filter on the CLEAN side only, so drift escapes without breaking isolation.</text>
+</svg>
