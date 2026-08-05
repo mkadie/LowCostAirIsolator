@@ -1,8 +1,9 @@
 Low-Cost Air Isolator
-Copyright (c) 2026 Michael Kadie (T-Rex, R.O.A.R. / TSSFAA) and contributors.
+Copyright (c) 2026 Michael Kadie (T-Rex, R.O.A.R. / TSSFAA) and Joshua Walgren contributors.
 
 Idea, research, documentation & testing: T-Rex (Michael Kadie) — with Claude
 (Anthropic) used to help speed research and iterate documentation.
+
 Plastics / CAD design: @JoshDesigns (YouTube) / https://github.com/joshuaua .
 
 SPDX-License-Identifier: CC-BY-NC-4.0
